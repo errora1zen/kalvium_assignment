@@ -1,11 +1,8 @@
 <?php
-// Get the URL path
 $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Remove the leading and trailing slashes
 $urlPath = trim($urlPath, '/');
 
-// Split the URL path into segments
 $segments = explode('/', $urlPath);
 
 // If the URL is just '/', display a list of example endpoints
@@ -31,10 +28,8 @@ if (empty($urlPath)) {
             'path' => '/3/into/5/plus/8/into/6',
             'description' => 'JSON: {question: "3*5+8*6", answer: 63}'
         ],
-        // Add more examples as needed
     ];
 
-    // Display the list of example endpoints in HTML format
     echo '<html><body>';
     echo '<h1>Example Endpoints</h1>';
     echo '<ul>';
@@ -47,7 +42,6 @@ if (empty($urlPath)) {
     echo '</ul>';
     echo '</body></html>';
 } elseif ($urlPath === 'history') {
-    // Read the history file
     $historyFilePath = 'history.txt';
     $history = [];
 
@@ -57,7 +51,6 @@ if (empty($urlPath)) {
         $history = array_reverse($history); // Reverse to show the latest calculations first
     }
 
-    // Display the history in HTML format
     echo '<html><body>';
     echo '<h1>Calculation History</h1>';
     echo '<ul>';
@@ -106,13 +99,10 @@ if (empty($urlPath)) {
         'answer' => $result
     ];
 
-    // Set the content type to JSON
     header('Content-Type: application/json');
 
-    // Return the response as JSON
     echo json_encode($response, JSON_PRETTY_PRINT);
 
-    // Append the calculation to the history file
     $historyFilePath = 'history.txt';
     $calculationString = $response['question'] . ' = ' . $response['answer'];
     file_put_contents($historyFilePath, $calculationString . PHP_EOL, FILE_APPEND);
